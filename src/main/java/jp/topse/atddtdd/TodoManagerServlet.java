@@ -22,7 +22,7 @@ public class TodoManagerServlet extends HttpServlet {
     private final static String MSG_TITLE_IS_EMPTY = "タスク名は空にできません";
     private final static String MSG_TITLE_INVALID_STRING = "入力できない文字がセットされています";
 
-    private final static String TODO_FILE_NAME = "ToDo.txt";
+    private final static String TODO_FILE_NAME = "ToDo.csv";
     private final static int[] lock = new int[0];
 
     @Override
