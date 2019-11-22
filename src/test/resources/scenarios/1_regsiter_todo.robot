@@ -1,5 +1,8 @@
 *** Settings ***
 Library           SeleniumLibrary
+Library           OperatingSystem
+Test Setup        Create DataFile
+Test Teardown     Remove DataFile
 Suite teardown    Close all browsers
 
 *** Variables ***
@@ -37,3 +40,9 @@ Register Todo
 
 Close Application Page
     Close Browser
+
+Create DataFile
+    Touch	./ToDo.csv
+
+Remove DataFile
+    Remove File		./ToDo.csv
