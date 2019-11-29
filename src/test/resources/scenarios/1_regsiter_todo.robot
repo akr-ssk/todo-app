@@ -6,7 +6,7 @@ Test Teardown     Remove DataFile
 Suite teardown    Close all browsers
 
 *** Variables ***
-${BROWSER}        chrome
+${BROWSER}        HeadlessChrome
 ${HOST}        localhost:8080
 
 *** Test Cases ***
