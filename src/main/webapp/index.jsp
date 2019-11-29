@@ -1,5 +1,5 @@
 <%@ page import="jp.topse.atddtdd.TodoFileManager" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=utf-8" language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
@@ -10,7 +10,7 @@
 <html lang="ja">
 <head>
     <title>TODO App</title>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
 </head>
 <body>
     <h1>ToDo App</h1>
