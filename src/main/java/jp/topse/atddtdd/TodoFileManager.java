@@ -13,7 +13,15 @@ import java.util.List;
  */
 public class TodoFileManager {
     private final static String TODO_FILE_NAME = "ToDo.csv";
-    private File todoFile = new File(TODO_FILE_NAME);
+    private File todoFile;
+
+    public TodoFileManager() {
+        this(new File(TODO_FILE_NAME));
+    }
+
+    public TodoFileManager(File file) {
+        this.todoFile = file;
+    }
 
     public synchronized List<Todo> readTodos() throws IOException {
         if (!todoFile.exists()) {

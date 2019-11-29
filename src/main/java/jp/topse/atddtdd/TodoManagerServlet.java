@@ -5,13 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(urlPatterns = {"/todo"})
 public class TodoManagerServlet extends HttpServlet {
@@ -40,12 +34,13 @@ public class TodoManagerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) {
-        req.getSession(true).setAttribute(KEY_ERROR_MESSAGE, "");
+        HttpSession session = req.getSession(true);
+        session.setAttribute(KEY_ERROR_MESSAGE, "");
         String title = req.getParameter("title");
         if ("".equals(title)) {
-            getServletContext().setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_IS_EMPTY);
+            session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_IS_EMPTY);
         } else if (";".contains(title)) {
-            getServletContext().setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_INVALID_STRING);
+            session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_INVALID_STRING);
         } else {
             try {
                 todoFileManager.updateTodo(new Todo(title));
