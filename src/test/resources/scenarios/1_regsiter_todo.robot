@@ -3,11 +3,10 @@ Library           SeleniumLibrary
 Library           OperatingSystem
 Test Setup        Create DataFile
 Test Teardown     Remove DataFile
-Suite setup       Open Headless Chrome
 Suite teardown    Close all browsers
 
 *** Variables ***
-${BROWSER}        Chrome
+${BROWSER}        HeadlessChrome
 ${HOST}        localhost:8080
 
 *** Test Cases ***
@@ -47,11 +46,3 @@ Create DataFile
 
 Remove DataFile
     Remove File		./ToDo.csv
-
-Open Headless Chrome
-    ${options} =  evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
-    call method  ${options}  add_argument  --headless
-    call method  ${options}  add_argument  --no-sandbox
-    create webdriver  Chrome  chrome_options=${options} 
-
-https://stackoverflow.com/questions/46812155/how-to-run-headless-remote-chrome-using-robot-framework
