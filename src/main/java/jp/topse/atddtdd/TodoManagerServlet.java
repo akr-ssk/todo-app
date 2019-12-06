@@ -6,14 +6,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 @WebServlet(urlPatterns = {"/todo"})
 public class TodoManagerServlet extends HttpServlet {
 
     private final static String KEY_ERROR_MESSAGE = "errorMessage";
     private final static String KEY_TODOS = "todoList";
-    private final static String MSG_TITLE_IS_EMPTY = "タスク名は空にできません";
-    private final static String MSG_TITLE_INVALID_STRING = "入力できない文字がセットされています";
+    private static String MSG_TITLE_IS_EMPTY;
+    private static String MSG_TITLE_INVALID_STRING;
+
+    static {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("Messages");
+        MSG_TITLE_IS_EMPTY = resourceBundle.getString("MSG_TITLE_IS_EMPTY");
+        MSG_TITLE_INVALID_STRING = resourceBundle.getString("MSG_TITLE_INVALID_STRING");
+    }
+
     private TodoFileManager todoFileManager = new TodoFileManager();
 
     @Override
