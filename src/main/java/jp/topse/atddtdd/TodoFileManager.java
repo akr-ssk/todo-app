@@ -14,6 +14,7 @@ import java.util.List;
 public class TodoFileManager {
     private final static String TODO_FILE_NAME = "ToDo.csv";
     private File todoFile;
+    private Parser parser = new SimpleParser();
 
     public TodoFileManager() {
         this(new File(TODO_FILE_NAME));
@@ -30,7 +31,7 @@ public class TodoFileManager {
         List<String> todos = Files.readAllLines(todoFile.toPath());
         List<Todo> todoList = new ArrayList<>();
         for (String line : todos) {
-            todoList.add(new Todo(line));
+            todoList.add(parser.makeTodo(line));
         }
         return todoList;
     }
@@ -41,7 +42,7 @@ public class TodoFileManager {
         BufferedWriter bw = Files.newBufferedWriter(todoFile.toPath(),
                 StandardOpenOption.TRUNCATE_EXISTING);
         for (Todo task : todoList) {
-            bw.write(task.getTitle() + "\r\n");
+            bw.write(parser.convertToString(task) + "\r\n");
         }
         bw.close();
         return todoList;

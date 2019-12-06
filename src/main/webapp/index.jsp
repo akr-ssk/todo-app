@@ -17,13 +17,22 @@
     <p id="error-Message">${sessionScope.errorMessage}</p>
     <form action="./todo" method="POST">
         <p>Title: <input type="text" id="title" name="title" /></p>
+        <p>メモ: <input type="text" id="memo" name="memo" /></p>
+        <!-- tentative -->
+        <p>優先度: <input type="text" id="priority" name="priority" /></p>
+        <p>期限: <input type="text" id="limit" name="limit" /></p>
+        <p>ID: <input type="text" id="todo-id" name="todo-id" /></p>
         <input type="submit" value="ADD" />
     </form>
     <hr />
     <table>
         <thead>
             <tr>
-                <th>title:</th>
+                <th>title</th>
+                <th>メモ</th>
+                <th>優先度</th>
+                <th>作成日</th>
+                <th>期限</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +40,10 @@
             <tr>
                 <td>
                     <c:out value="${todo.title}" />
+                    <c:out value="${todo.memo}" />
+                    <c:out value="${todo.priority}" />
+                    <c:out value="${todo.createsAt}" />
+                    <c:out value="${todo.whenToBeDone}" />
                 </td>
             </tr>
         </c:forEach>

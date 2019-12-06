@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicLong;
 
 @WebServlet(urlPatterns = {"/todo"})
 public class TodoManagerServlet extends HttpServlet {
@@ -15,6 +16,7 @@ public class TodoManagerServlet extends HttpServlet {
     private final static String MSG_TITLE_IS_EMPTY = "タスク名は空にできません";
     private final static String MSG_TITLE_INVALID_STRING = "入力できない文字がセットされています";
     private TodoFileManager todoFileManager = new TodoFileManager();
+    private static AtomicLong atomicLong = new AtomicLong();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) {
@@ -36,6 +38,9 @@ public class TodoManagerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) {
         HttpSession session = req.getSession(true);
         session.setAttribute(KEY_ERROR_MESSAGE, "");
+
+        String id = req.getParameter("todo-id");
+        //error handling is required.
         String title = req.getParameter("title");
         if ("".equals(title)) {
             session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_IS_EMPTY);
@@ -43,7 +48,10 @@ public class TodoManagerServlet extends HttpServlet {
             session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_INVALID_STRING);
         } else {
             try {
-                todoFileManager.updateTodo(new Todo(title));
+                Todo newTodo = new Todo();
+                newTodo.setId(Long.parseLong(id));
+                newTodo.setTitle(title);
+                todoFileManager.updateTodo(newTodo);
             } catch (IOException ex) {
                 res.setStatus(500);
             }
