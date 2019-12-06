@@ -6,17 +6,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.ResourceBundle;
 
 @WebServlet(urlPatterns = {"/todo"})
 public class TodoManagerServlet extends HttpServlet {
 
     private final static String KEY_ERROR_MESSAGE = "errorMessage";
     private final static String KEY_TODOS = "todoList";
-    private final static String MSG_TITLE_IS_EMPTY = "タスク名は空にできません";
-    private final static String MSG_TITLE_INVALID_STRING = "入力できない文字がセットされています";
+    private static String MSG_TITLE_IS_EMPTY;
+    private static String MSG_TITLE_INVALID_STRING;
+
+    static {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("Messages");
+        MSG_TITLE_IS_EMPTY = resourceBundle.getString("MSG_TITLE_IS_EMPTY");
+        MSG_TITLE_INVALID_STRING = resourceBundle.getString("MSG_TITLE_INVALID_STRING");
+    }
+
     private TodoFileManager todoFileManager = new TodoFileManager();
-    private static AtomicLong atomicLong = new AtomicLong();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) {
@@ -38,9 +44,6 @@ public class TodoManagerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) {
         HttpSession session = req.getSession(true);
         session.setAttribute(KEY_ERROR_MESSAGE, "");
-
-        String id = req.getParameter("todo-id");
-        //error handling is required.
         String title = req.getParameter("title");
         if ("".equals(title)) {
             session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_IS_EMPTY);
@@ -48,10 +51,7 @@ public class TodoManagerServlet extends HttpServlet {
             session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_INVALID_STRING);
         } else {
             try {
-                Todo newTodo = new Todo();
-                newTodo.setId(Long.parseLong(id));
-                newTodo.setTitle(title);
-                todoFileManager.updateTodo(newTodo);
+                todoFileManager.updateTodo(new Todo(title));
             } catch (IOException ex) {
                 res.setStatus(500);
             }
