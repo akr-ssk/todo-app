@@ -1,5 +1,7 @@
 package jp.topse.atddtdd;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,13 +47,12 @@ public class TodoManagerServlet extends HttpServlet {
         HttpSession session = req.getSession(true);
         session.setAttribute(KEY_ERROR_MESSAGE, "");
         String title = req.getParameter("title");
-        if ("".equals(title)) {
-            session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_IS_EMPTY);
-        } else if (";".contains(title)) {
-            session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_INVALID_STRING);
-        } else {
+        String priority = req.getParameter("priority");
+        Todo todo = new Todo(title, Integer.parseInt(priority));
+
+        if(isTodoApplicableToRegister(session, todo)) {
             try {
-                todoFileManager.updateTodo(new Todo(title));
+                todoFileManager.updateTodo(todo);
             } catch (IOException ex) {
                 res.setStatus(500);
             }
@@ -63,5 +64,17 @@ public class TodoManagerServlet extends HttpServlet {
         }
     }
 
+    private boolean isTodoApplicableToRegister(HttpSession session, Todo todo) {
+        String title = todo.getTitle();
+        int priority = todo.getPriority();
+        if ("".equals(title)) {
+            session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_IS_EMPTY);
+            return false;
+        } else if (";".contains(title)) {
+            session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_INVALID_STRING);
+            return false;
+        }
 
+        return true;
+    }
 }

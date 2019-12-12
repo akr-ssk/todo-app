@@ -1,21 +1,19 @@
 package jp.topse.atddtdd;
 
-import java.util.Date;
-
 public class Todo {
     private String title;
-    private long id;
-    private String priority;
-    private String memo;
-    private Date createsAt;
-    private Date whenToBeDone;
-
-    public Todo() {
-        
-    }
+    private int priority;
 
     public Todo(String title) {
+        this(title, 3);
+    }
+
+    public Todo(String title, int priority) {
         this.title = title;
+        if(priority <= 0 || priority > 5) {
+            throw new IllegalArgumentException("priority is not in range.");
+        }
+        this.priority = priority;
     }
 
     public String getTitle() {
@@ -26,43 +24,11 @@ public class Todo {
         this.title = title;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getPriority() {
+    public int getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(int priority) {
         this.priority = priority;
-    }
-
-    public Date getCreatesAt() {
-        return createsAt;
-    }
-
-    public void setCreatesAt(Date createsAt) {
-        this.createsAt = createsAt;
-    }
-
-    public Date getWhenToBeDone() {
-        return whenToBeDone;
-    }
-
-    public void setWhenToBeDone(Date whenToBeDone) {
-        this.whenToBeDone = whenToBeDone;
-    }
-
-    public String getMemo() {
-        return memo;
-    }
-
-    public void setMemo(String memo) {
-        this.memo = memo;
     }
 }
