@@ -5,8 +5,6 @@
 <%
     TodoFileManager fileManager = new TodoFileManager();
     session.setAttribute("todoList", fileManager.readTodos());
-
-    List<Integer> priorities = Arrays.asList(1, 2, 3, 4, 5);
 %>
 
 <html lang="ja">
