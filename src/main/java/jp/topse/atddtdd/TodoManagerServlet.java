@@ -46,10 +46,16 @@ public class TodoManagerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) {
         HttpSession session = req.getSession(true);
         session.setAttribute(KEY_ERROR_MESSAGE, "");
+        String id = req.getParameter("id");
         String title = req.getParameter("title");
         String priority = req.getParameter("priority");
-        Todo todo = new Todo(title, Integer.parseInt(priority));
-
+        Todo todo;
+        if(id == null) {
+            todo = new Todo(title, Integer.parseInt(priority));
+        } else {
+            todo = new Todo(Long.parseLong(id),
+                    title, Integer.parseInt(priority));
+        }
         if(isTodoApplicableToRegister(session, todo)) {
             try {
                 todoFileManager.updateTodo(todo);

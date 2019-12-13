@@ -19,7 +19,7 @@
 <body>
     <h1>ToDo App</h1>
     <p id="error-Message">${sessionScope.errorMessage}</p>
-    <form action="./todo" method="POST">
+    <form action="./todo" method="POST" id="todo-add">
         <p>Title: <input type="text" id="title" name="title" /></p>
         <p>Priority:
             <select id="priority" name="priority">
@@ -36,24 +36,36 @@
     <table>
         <thead>
             <tr>
+                <th>id:</th>
                 <th>title:</th>
+                <th>priority:</th>
+                <th><!-- button --></th>
             </tr>
         </thead>
         <tbody>
-        <c:forEach items="${sessionScope.todoList}" var="todo" >
+        <c:forEach items="${sessionScope.todoList}" var="todo" varStatus="status">
+            <form action="./todo" method="POST" id="todo-update-${status.index}">
             <tr>
                 <td>
-                    <c:out value="${todo.title}" />
-                    <select>
-                        <option value="1" selected="${todo.priority == 1 ? "selected" : ""}">1</option>
-                        <option value="2" selected="${todo.priority == 2 ? "selected" : ""}">2</option>
-                        <option value="3" selected="${todo.priority == 3 ? "selected" : ""}">3</option>
-                        <option value="4" selected="${todo.priority == 4 ? "selected" : ""}">4</option>
-                        <option value="5" selected="${todo.priority == 5 ? "selected" : ""}">5</option>
-                        <option value="0" selected="${todo.priority == null? "selected" : ""}"></option>
+                    <input name="id" type="text" value="${todo.id}" />
+                </td>
+                <td>
+                    <input name="title" type="text" value="${todo.title}" /><br />
+                </td>
+                <td>
+                    <select name="priority">
+                        <option value="1" ${todo.priority == 1 ? "selected" : ""}>1</option>
+                        <option value="2" ${todo.priority == 2 ? "selected" : ""}>2</option>
+                        <option value="3" ${todo.priority == 3 ? "selected" : ""}>3</option>
+                        <option value="4" ${todo.priority == 4 ? "selected" : ""}>4</option>
+                        <option value="5" ${todo.priority == 5 ? "selected" : ""}>5</option>
                     </select>
                 </td>
+                <td>
+                    <input type="submit" value="UPDATE" />
+                </td>
             </tr>
+            </form>
         </c:forEach>
         </tbody>
     </table>

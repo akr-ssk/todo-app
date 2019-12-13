@@ -8,15 +8,14 @@ public class SimpleParser implements Parser{
     @Override
     public Todo makeTodo(String line) {
         String[] task = line.trim().split(SP);
-        if(task.length != 2) {
-            //?
+        if(task.length != 3) {
             throw new RuntimeException("csv format is illegal.");
         }
         Todo newTodo = new Todo();
         newTodo.setId(Long.parseLong(task[0]));
         newTodo.setTitle(task[1]);
+        newTodo.setPriority(Integer.parseInt(task[2]));
 //        newTodo.setMemo(task[2]);
-//        newTodo.setPriority(task[3]);
         // needs to be refactor.
         //newTodo.setCreatesAt(Date.parse(task[4]));
         //newTodo.setWhenToBeDone(Date.parse(task[5]));
@@ -27,9 +26,9 @@ public class SimpleParser implements Parser{
     @Override
     public String convertToString(Todo todo) {
         return  todo.getId() + SP +
-                todo.getTitle() + SP; // +
+                todo.getTitle() + SP +
+                todo.getPriority() + SP;
 //                todo.getMemo() + SP +
-//                todo.getPriority() + SP +
 //                todo.getCreatesAt() + SP +
 //                todo.getWhenToBeDone();
     }
