@@ -3,7 +3,7 @@ Library           SeleniumLibrary
 Library           OperatingSystem
 Library           String
 Test Setup        Run Keywords  Open Application Page  AND  Log To Console  ${EMPTY}
-Test Teardown     Run Keywords  Close Application Page
+Test Teardown     Run Keywords  Close Application Page  AND  Remove DataFile
 Suite teardown    Run Keywords  Close all browsers
 
 *** Variables ***
@@ -55,7 +55,7 @@ ${HOST}        localhost:8080
     Wait Until Page Contains Element  css=body
 
 タスクリストの最後の要素
-    ${contents}=    Get Text    css=body > table > tbody > tr:last-child
+    ${contents}=    Get Value    css=body > table > tbody > tr > td:nth-child(2) > input
     [Return]  ${contents}
 
 表示されているタスクの個数
