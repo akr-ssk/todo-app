@@ -35,6 +35,7 @@
                 <th>id:</th>
                 <th>title:</th>
                 <th>priority:</th>
+                <th>status:</th>
                 <th><!-- button --></th>
             </tr>
         </thead>
@@ -55,6 +56,12 @@
                         <option value="3" ${todo.priority == 3 ? "selected" : ""}>3</option>
                         <option value="4" ${todo.priority == 4 ? "selected" : ""}>4</option>
                         <option value="5" ${todo.priority == 5 ? "selected" : ""}>5</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="status">
+                        <option value="TODO" ${todo.status == 'TODO' ? "selected" : ""}>TODO</option>
+                        <option value="CLOSE" ${todo.status == 'CLOSE' ? "selected" : ""}>CLOSE</option>
                     </select>
                 </td>
                 <td>
