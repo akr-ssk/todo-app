@@ -43,7 +43,7 @@
             <form action="./todo" method="POST" id="todo-update-${status.index}">
             <tr>
                 <td>
-                    <input name="id" type="text" value="${todo.id}" />
+                    <input name="id" type="text" value="${todo.id}" readonly="readonly"/>
                 </td>
                 <td>
                     <input name="title" type="text" value="${todo.title}" /><br />
