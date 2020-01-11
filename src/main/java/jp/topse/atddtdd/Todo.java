@@ -6,6 +6,7 @@ public class Todo {
     private long id;
     private String title;
     private int priority;
+    private String status;
     private static final TodoIndexHolder todoIndexHolder = TodoIndexHolder.getInstance();
 
     //used from Parser.
@@ -21,12 +22,17 @@ public class Todo {
     }
 
     public Todo(long id, String title, int priority) {
+        this(id, title, priority, "TODO");
+    }
+
+    public Todo(long id, String title, int priority, String status) {
         this.id = id;
         this.title = title;
         if(priority <= 0 || priority > 5) {
             throw new IllegalArgumentException("priority is not in range.");
         }
         this.priority = priority;
+        this.status = status;
     }
 
     public String getTitle() {
@@ -51,6 +57,14 @@ public class Todo {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return this.status;
     }
 
     @Override
