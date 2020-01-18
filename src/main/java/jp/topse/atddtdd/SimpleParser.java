@@ -2,7 +2,6 @@ package jp.topse.atddtdd;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
