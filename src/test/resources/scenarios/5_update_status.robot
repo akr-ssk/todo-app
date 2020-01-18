@@ -1,6 +1,15 @@
 
 #5 ユーザとして、TODOに完了を設定することができること。
-c
+*** Settings ***
+Library           SeleniumLibrary
+Library           OperatingSystem
+Test Setup        Run Keywords  Open Application Page  AND  Remove DataFile  AND  Create DataFile
+Test Teardown     Run Keywords  Close Application Page
+Suite teardown    Run Keywords  Close all browsers
+
+*** Variables ***
+${BROWSER}     HeadlessChrome
+${HOST}        localhost:8080
 
 *** Test Cases ***
 change the status "TODO" to "CLOSE"
