@@ -1,12 +1,12 @@
 package jp.topse.atddtdd;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 public class Todo {
     private long id;
     private String title;
     private int priority;
     private String status;
+    private String deadline; //(example: 2020-01-18)
+    private String deadlineNotificationMessage;
     private static final TodoIndexHolder todoIndexHolder = TodoIndexHolder.getInstance();
 
     //used from Parser.
@@ -14,18 +14,18 @@ public class Todo {
 
     @Deprecated
     public Todo(String title) {
-        this(title, 3);
+        this(title, 3, "");
     }
 
-    public Todo(String title, int priority) {
-        this(todoIndexHolder.getId(), title, priority);
+    public Todo(String title, int priority, String deadline) {
+        this(todoIndexHolder.getId(), title, priority, deadline);
     }
 
-    public Todo(long id, String title, int priority) {
-        this(id, title, priority, "TODO");
+    public Todo(long id, String title, int priority, String deadline) {
+        this(id, title, priority, "TODO", deadline);
     }
 
-    public Todo(long id, String title, int priority, String status) {
+    public Todo(long id, String title, int priority, String status, String deadline) {
         this.id = id;
         this.title = title;
         if(priority <= 0 || priority > 5) {
@@ -33,6 +33,7 @@ public class Todo {
         }
         this.priority = priority;
         this.status = status;
+        this.deadline = deadline;
     }
 
     public String getTitle() {
@@ -65,6 +66,22 @@ public class Todo {
 
     public String getStatus() {
         return this.status;
+    }
+
+    public String getDeadline() {
+        return this.deadline;
+    }
+
+    public void setDeadline(String date) {
+        this.deadline = date;
+    }
+
+    public String getDeadlineNotificationMessage() {
+        return deadlineNotificationMessage;
+    }
+
+    public void setDeadlineNotificationMessage(String deadlineNotificationMessage) {
+        this.deadlineNotificationMessage = deadlineNotificationMessage;
     }
 
     @Override

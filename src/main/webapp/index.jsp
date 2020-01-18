@@ -26,6 +26,7 @@
                 <option value="5">5</option>
             </select>
         </p>
+        <p>期限: <input type="date" name="deadline" /></p>
         <input type="submit" value="ADD" />
     </form>
     <hr />
@@ -36,6 +37,8 @@
                 <th>title:</th>
                 <th>priority:</th>
                 <th>status:</th>
+                <th>limit:</th>
+                <th>期限切れ？</th>
                 <th><!-- button --></th>
             </tr>
         </thead>
@@ -52,7 +55,7 @@
                 <td>
                     <select name="priority">
                         <option value="1" ${todo.priority == 1 ? "selected" : ""}>1</option>
-                        <option value="2" ${todo.priority == 2 ? "selected" : ""}>2</option>
+                        <おoption value="2" ${todo.priority == 2 ? "selected" : ""}>2</おoption>
                         <option value="3" ${todo.priority == 3 ? "selected" : ""}>3</option>
                         <option value="4" ${todo.priority == 4 ? "selected" : ""}>4</option>
                         <option value="5" ${todo.priority == 5 ? "selected" : ""}>5</option>
@@ -63,6 +66,12 @@
                         <option value="TODO" ${todo.status == 'TODO' ? "selected" : ""}>TODO</option>
                         <option value="CLOSE" ${todo.status == 'CLOSE' ? "selected" : ""}>CLOSE</option>
                     </select>
+                </td>
+                <td>
+                    <input name="deadline" type="date" value="${todo.deadline}" />
+                </td>
+                <td>
+                    <p style="color: red; font-weight: bold;">${todo.deadlineNotificationMessage}</p>
                 </td>
                 <td>
                     <input type="submit" value="UPDATE" />

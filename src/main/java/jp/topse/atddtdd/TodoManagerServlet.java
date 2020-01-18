@@ -50,12 +50,13 @@ public class TodoManagerServlet extends HttpServlet {
         String title = req.getParameter("title");
         String priority = req.getParameter("priority");
         String status = req.getParameter("status");
+        String deadline = req.getParameter("deadline");
         Todo todo;
         if(id == null) {
-            todo = new Todo(title, Integer.parseInt(priority));
+            todo = new Todo(title, Integer.parseInt(priority), deadline);
         } else {
             todo = new Todo(Long.parseLong(id),
-                    title, Integer.parseInt(priority), status);
+                    title, Integer.parseInt(priority), status, deadline);
         }
         if(isTodoApplicableToRegister(session, todo)) {
             try {
