@@ -27,7 +27,7 @@ Modify the task
     Input Text  css=tr:last-child > td:nth-child(2) > input  FUGAFUGA
 
 Click the update button
-    Click Button  css=tr:last-child > td:nth-child(4) > input
+    Click Button  css=tr:last-child > td:nth-child(5) > input
 
 Contents of the task are updated
     Wait Until Page Contains Element  css=body
