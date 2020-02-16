@@ -1,7 +1,5 @@
 package jp.topse.atddtdd;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +11,7 @@ import java.util.ResourceBundle;
 @WebServlet(urlPatterns = {"/todo"})
 public class TodoManagerServlet extends HttpServlet {
 
+    private static final long serialVersionUID = -3924624487692409232L;
     private final static String KEY_ERROR_MESSAGE = "errorMessage";
     private final static String KEY_TODOS = "todoList";
     private static String MSG_TITLE_IS_EMPTY;
@@ -50,12 +49,13 @@ public class TodoManagerServlet extends HttpServlet {
         String title = req.getParameter("title");
         String priority = req.getParameter("priority");
         String status = req.getParameter("status");
+        String deadline = req.getParameter("deadline");
         Todo todo;
         if(id == null) {
-            todo = new Todo(title, Integer.parseInt(priority));
+            todo = new Todo(title, Integer.parseInt(priority), deadline);
         } else {
             todo = new Todo(Long.parseLong(id),
-                    title, Integer.parseInt(priority), status);
+                    title, Integer.parseInt(priority), status, deadline);
         }
         if(isTodoApplicableToRegister(session, todo)) {
             try {
@@ -73,7 +73,7 @@ public class TodoManagerServlet extends HttpServlet {
 
     private boolean isTodoApplicableToRegister(HttpSession session, Todo todo) {
         String title = todo.getTitle();
-        int priority = todo.getPriority();
+        //int priority = todo.getPriority();
         if ("".equals(title)) {
             session.setAttribute(KEY_ERROR_MESSAGE, MSG_TITLE_IS_EMPTY);
             return false;
